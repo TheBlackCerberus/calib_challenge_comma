@@ -1,3 +1,5 @@
+> **⚠️ Work In Progress** - This solution is currently under development.
+
 Welcome to the comma.ai Calibration Challenge!
 ======
 
@@ -46,6 +48,34 @@ Hints
 - The dataset is tiny, use caution if using ML.
 
 
-<s> $500 Prize </s> CLAIMED
+
+# Approach
 ------
-The first submission that scores an error under 25% on the unlabeled set, will receive a $500 prize.
+This solution uses VGGT (Visual Geometry Grounded Transformer) to tackle the comma.ai calibration challenge. The key insight is that VGGT has a camera head which contains the intrinsic and extrinsic information adjustment, so it should be able to infer (pitch and yaw).It's also rather novel deep learning compared to traditional SLAM and much more simple in architecture.
+
+How this works 
+-----
+Traditional camera calibration involves a complex pipeline:
+
+```
+Images → Feature Detection → Matching → Triangulation → Bundle Adjustment → Refinement
+```
+
+VGGT simplifies this to:
+
+```
+Images → Transformer → Camera Parameters, Depth Maps, Point Images, Tracks
+```
+
+![VGGT Overview](assets/vggt.png)
+
+VGGT simplifies this to a single transformer that directly predicts camera parameters. The network learns geometric relationships from data rather than relying on hand-crafted algos.
+
+See notebooks/explore_vggt.ipynb
+
+Credit: 
+------
+This solution uses **VGGT (Visual Geometry Grounded Transformer)** by Facebook Research:
+
+- **Repository**: https://github.com/facebookresearch/vggt
+- **Paper**: VGGT: Visual Geometry Grounded Transformer
